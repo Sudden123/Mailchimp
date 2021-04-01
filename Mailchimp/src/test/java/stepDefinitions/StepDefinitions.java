@@ -77,6 +77,8 @@ public class StepDefinitions {
 	@Given("I have also typed in {string}")
 	public void i_have_also_typed_in(String username) {
 		driver.findElement(By.id("new_username")).sendKeys(RandomUser());
+		
+		//hdshd
 	}
 
 	@Given("I have as well typed in {string}")
