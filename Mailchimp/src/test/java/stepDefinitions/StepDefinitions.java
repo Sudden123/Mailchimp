@@ -16,11 +16,12 @@ public class StepDefinitions {
 
 	private WebDriver driver;
 
+	// Method that creates random emails
 	private String RandomEmail() {
 		String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
 		StringBuilder email = new StringBuilder();
 		Random rnd = new Random();
-		while (email.length() < 10) { 
+		while (email.length() < 10) {
 			int index = (int) (rnd.nextFloat() * letters.length());
 			email.append(letters.charAt(index));
 		}
@@ -28,12 +29,13 @@ public class StepDefinitions {
 		return RndEmail;
 
 	}
-	
+
+	// Method that creates random usernames
 	private String RandomUser() {
 		String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
 		StringBuilder user = new StringBuilder();
 		Random rnd = new Random();
-		while (user.length() < 10) { 
+		while (user.length() < 10) {
 			int index = (int) (rnd.nextFloat() * letters.length());
 			user.append(letters.charAt(index));
 		}
@@ -41,16 +43,17 @@ public class StepDefinitions {
 		return RndUser;
 
 	}
-	
+
+	// Method that creates random usernames with 101 letters or numbers
 	private String RandomUser100() {
 		String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
-		StringBuilder user100 = new StringBuilder();
+		StringBuilder user101 = new StringBuilder();
 		Random rnd = new Random();
-		while (user100.length() < 102) { 
+		while (user101.length() < 102) {
 			int index = (int) (rnd.nextFloat() * letters.length());
-			user100.append(letters.charAt(index));
+			user101.append(letters.charAt(index));
 		}
-		String RndUser = user100.toString();
+		String RndUser = user101.toString();
 		return RndUser;
 
 	}
@@ -66,19 +69,29 @@ public class StepDefinitions {
 
 	@Given("I have typed in {string}")
 	public void i_have_typed_in(String email) {
-		
-		if(email.equals("CorrectEmail")) {
+
+		if (email.equals("CorrectEmail")) {
 			driver.findElement(By.id("email")).sendKeys(RandomEmail() + "@gmail.com");
+
+		} else if (email.equals("NoEmail")) {
+			driver.findElement(By.id("email")).sendKeys("");
 		}
-		
-		
 	}
 
 	@Given("I have also typed in {string}")
 	public void i_have_also_typed_in(String username) {
-		driver.findElement(By.id("new_username")).sendKeys(RandomUser());
-		
-		//hdshd
+
+		if (username.equals("CorrectUsername")) {
+			driver.findElement(By.id("new_username")).sendKeys(RandomUser());
+
+		} else if (username.equals("100+UserName")) {
+			driver.findElement(By.id("new_username")).sendKeys(RandomUser100());
+
+		} else if (username.equals("UserAlreadyExist")) {
+			driver.findElement(By.id("new_username")).sendKeys("Sunken_80_SE");
+
+		}
+
 	}
 
 	@Given("I have as well typed in {string}")
@@ -94,11 +107,33 @@ public class StepDefinitions {
 	@Then("I verify {string} of account")
 	public void i_verify_of_account(String message) {
 
-		driver.findElement(By.className("!margin-bottom--lv3 no-transform center-on-medium"))
-				.getAttribute("textContent");
-		assertEquals(message, driver.findElement(By.className("!margin-bottom--lv3 no-transform center-on-medium"))
-				.getAttribute("textContent"));
-		driver.quit();
+		if (message.equals("Check your email")) {
+			driver.findElement(By.xpath("//*[@id=\"signup-content\"]/div/div/div/h1"))
+					.getAttribute("textContent");
+			assertEquals(message, driver.findElement(By.xpath("//*[@id=\"signup-content\"]/div/div/div/h1"))
+					.getAttribute("textContent"));
+			driver.quit();
+
+		} else if (message.equals("Please enter a value")) {
+			driver.findElement(By.className("invalid-error")).getAttribute("textContent");
+			assertEquals(message, driver.findElement(By.className("invalid-error")).getAttribute("textContent"));
+			driver.quit();
+
+		} else if (message.equals("Enter a value less than 100 characters long")) {
+			driver.findElement(By.xpath("//*[@id=\"signup-form\"]/fieldset/div[2]/div/span"))
+					.getAttribute("textContent");
+			assertEquals(message, driver.findElement(By.xpath("//*[@id=\"signup-form\"]/fieldset/div[2]/div/span"))
+					.getAttribute("textContent"));
+			driver.quit();
+
+		} else if (message
+				.equals("Another user with this username already exists. Maybe it's your evil twin. Spooky.")) {
+			driver.findElement(By.xpath("//*[@id=\"signup-form\"]/fieldset/div[2]/div/span"))
+					.getAttribute("textContent");
+			assertEquals(message, driver.findElement(By.xpath("//*[@id=\"signup-form\"]/fieldset/div[2]/div/span"))
+					.getAttribute("textContent"));
+			driver.quit();
+		}
 	}
 
 }

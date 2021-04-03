@@ -15,6 +15,6 @@ Feature: Register account
     Examples: 
       | email | username | password   | status |
       | "CorrectEmail" | "CorrectUsername" | "Ab!45678" | "Check your email" |
-      | "NoEmail" | "Banan1234565" | "Ab!45678" | "Please enter a value" |
-      | "CorrectEmail" | "100+Letters" | "Ab!45678" | "Enter a value less than 100 characters long" |
-      | "EmailAlreadyExist" | "Banan1234565" | "Ab!45678" | "Another user with this username already exists. Maybe it's your evil twin. Spooky." |
+      | "NoEmail" | "CorrectUsername" | "Ab!45678" | "Please enter a value" |
+      | "CorrectEmail" | "100+UserName" | "Ab!45678" | "Enter a value less than 100 characters long" |
+      | "CorrectEmail" | "UserAlreadyExist" | "Ab!45678" | "Another user with this username already exists. Maybe it's your evil twin. Spooky." |
