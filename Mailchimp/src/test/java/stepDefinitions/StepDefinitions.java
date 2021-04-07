@@ -12,7 +12,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 
 public class StepDefinitions {
 
@@ -116,14 +115,9 @@ public class StepDefinitions {
 		sendKeys(By.id("new_password"), password);
 	}
 
-	@When("I press sign up an account is made")
-	public void i_press_sign_up_an_account_is_made() {
-		// Clicks create account button
+	@Then("I press sign up and verify {string} of account")
+	public void i_press_sign_up_and_verify_of_account(String message) {
 		click(By.id("create-account"));
-	}
-
-	@Then("I verify {string} of account")
-	public void i_verify_of_account(String message) {
 
 		String expected = "";
 		String actual = "";
@@ -155,5 +149,4 @@ public class StepDefinitions {
 		}
 		assertEquals(expected, actual);
 	}
-
 }

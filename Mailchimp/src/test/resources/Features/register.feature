@@ -9,8 +9,7 @@ Feature: Register account
     And I have typed in <email>
     And I have also typed in <username>
     And I have as well typed in <password>
-    When I press sign up an account is made
-    Then I verify <status> of account
+    Then I press sign up and verify <status> of account
 
     Examples: 
       | email | username | password   | status |
