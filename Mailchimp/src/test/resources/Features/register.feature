@@ -5,7 +5,7 @@ Feature: Register account
 
 
   Scenario Outline: Register
-  Given i have entered Mailchimp site
+  Given I have entered Mailchimp site
     And I have typed in <email>
     And I have also typed in <username>
     And I have as well typed in <password>
