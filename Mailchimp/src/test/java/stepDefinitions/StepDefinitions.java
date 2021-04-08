@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Random;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -78,6 +79,8 @@ public class StepDefinitions {
 		driver = new ChromeDriver(); // Starts chrome
 		driver.manage().window().maximize();
 		driver.get("https://login.mailchimp.com/signup/"); // Goes to site
+		JavascriptExecutor jse = (JavascriptExecutor)driver;
+		jse.executeScript("window.scrollBy(0,250)");
 	}
 
 	@Given("I have typed in {string}")
@@ -117,6 +120,7 @@ public class StepDefinitions {
 
 	@Then("I press sign up and verify {string} of account")
 	public void i_press_sign_up_and_verify_of_account(String message) {
+		// Clicks Sign up button
 		click(By.id("create-account"));
 
 		String expected = "";
