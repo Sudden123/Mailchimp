@@ -46,7 +46,7 @@ public class StepDefinitions {
 
 	}
 
-	// Method that creates random usernames with 101 letters or numbers
+	// Method that creates random usernames with 101 letters or numbers (I now random not necissary but i like it)
 	private String RandomUser100() {
 		String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
 		StringBuilder user101 = new StringBuilder();
@@ -79,6 +79,8 @@ public class StepDefinitions {
 		driver = new ChromeDriver(); // Starts chrome
 		driver.manage().window().maximize();
 		driver.get("https://login.mailchimp.com/signup/"); // Goes to site
+		
+		// Scrolls down so that this code works on smaller screens
 		JavascriptExecutor jse = (JavascriptExecutor)driver;
 		jse.executeScript("window.scrollBy(0,250)");
 	}
